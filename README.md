@@ -99,9 +99,9 @@ La Barrioteca incluye varios scripts PHP para añadir libros al catalogo sin pas
 
 | Script | Ubicacion en repo | Funcion |
 |--------|-------------------|---------|
-| `importar-csv.php` | `PWA/importar-csv.php` | Importacion masiva desde archivo CSV con ISBNs, por lotes |
-| `anadir-libro.php` | `SLiMS/anadir-libro.php` | Busqueda por titulo/autor en APIs o formulario manual, para libros sin ISBN |
-| `importar-isbns.php` | `PWA/importar-isbns.php` | Pegar una lista de ISBNs y añadirlos uno a uno |
+| `importar-csv.php` | `barrioteca-web/importar-csv.php` | Importacion masiva desde archivo CSV con ISBNs, por lotes |
+| `anadir-libro.php` | `barrioteca-slims/anadir-libro.php` | Busqueda por titulo/autor en APIs o formulario manual, para libros sin ISBN |
+| `importar-isbns.php` | `barrioteca-web/importar-isbns.php` | Pegar una lista de ISBNs y añadirlos uno a uno |
 
 Los scripts se suben al NAS en `/slims/` (no en `/barrioteca/`) y se eliminan despues de usarlos. El script `anadir-libro.php` genera automaticamente una etiqueta con codigo de barras imprimible para pegar en cada libro fisico.
 
@@ -146,15 +146,15 @@ La Barrioteca Acalencá está disponible como **app Android nativa** en Google P
 
 La app Android v2 es nativa y se comunica con el NAS a través de la API (`api-proxy.php`). Cuando cambies SLiMS o la API, los cambios se reflejan sin tocar la app; para cambios de interfaz o funciones nuevas hay que publicar una versión nueva en Google Play.
 
-Para publicar una nueva versión, consulta el `README.md` de `barrioteca-android-app-v2/`.
+Para publicar una nueva versión, consulta el `README.md` de `barrioteca-android/`.
 
 ### Google Play
 
-Ya disponible en Google Play Store. La documentación de publicación está en el repositorio: [acalenca-barrioteca-app-android-v2](https://github.com/jesuscastilla/acalenca-barrioteca-app-android-v2).
+Ya disponible en Google Play Store. La documentación de publicación está en el repositorio: [barrioteca-android](https://github.com/jesuscastilla/barrioteca-android).
 
 ### App Store (iOS)
 
-También disponible para iPhone y iPad. Consulta el repositorio: [acalenca-barrioteca-app-ios](https://github.com/jesuscastilla/acalenca-barrioteca-app-ios).
+También disponible para iPhone y iPad. Consulta el repositorio: [barrioteca-ios](https://github.com/jesuscastilla/barrioteca-ios).
 
 ---
 
@@ -182,8 +182,8 @@ La Barrioteca Acalencá se aloja en un **NAS Synology** que funciona como nube l
 
 | App | Repositorio |
 |-----|------------|
-| Android (.apk) | [acalenca-barrioteca-app-android](https://github.com/jesuscastilla/acalenca-barrioteca-app-android) |
-| iOS (iPhone/iPad) | [acalenca-barrioteca-app-ios](https://github.com/jesuscastilla/acalenca-barrioteca-app-ios) |
+| Android (.apk) | [barrioteca-android](https://github.com/jesuscastilla/barrioteca-android) |
+| iOS (iPhone/iPad) | [barrioteca-ios](https://github.com/jesuscastilla/barrioteca-ios) |
 
 ---
 
