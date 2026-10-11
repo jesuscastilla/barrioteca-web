@@ -189,7 +189,7 @@ La Barrioteca Acalencá se aloja en un **NAS Synology** que funciona como nube l
 
 ## Creditos
 
-Este proyecto ha sido desarrollado por Peloxi (Instagram: @Pelochochi) para la Barrioteca Acalenca, un espacio perteneciente a Lebeche, asociacion cultural y vecinal de Salobrena (Granada).
+Este proyecto ha sido desarrollado por [Peloxi](https://jesuscastilla.github.io/portfolio-pelotxo/) (Instagram: @Pelochochi) para la Barrioteca Acalenca, un espacio perteneciente a Lebeche, asociacion cultural y vecinal de Salobrena (Granada).
 
 ## Licencia
 
