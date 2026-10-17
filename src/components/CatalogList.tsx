@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Loader2, Search, X } from 'lucide-react';
 import type { CatalogBook } from '../types';
