@@ -1,0 +1,3 @@
+## 2024-10-18 - [Accessible Dynamic Search]
+**Learning:** Screen readers won't announce when search results update dynamically as you type. Real-time client-side search requires explicit live regions to be accessible. Also, adding a hidden clear button (via native cancel or custom button) with proper `aria-label` makes keyboard navigation and form clearing much easier.
+**Action:** Always add `aria-live="polite"` to results counts/summaries in instant search features, use `type="search"` for semantic inputs, and ensure any clear buttons have descriptive `aria-label` and explicitly hidden icons (`aria-hidden="true"`).

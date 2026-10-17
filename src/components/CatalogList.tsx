@@ -84,19 +84,30 @@ export function CatalogList({ endpoint, isLoggedIn, onBorrow }: Props) {
       <h2 className="text-2xl italic font-bold">Catálogo de la Biblioteca</h2>
 
       <div className="relative">
-        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">
+        <label htmlFor="catalog-search" className="sr-only">Buscar en el catálogo</label>
+        <div className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" aria-hidden="true">
           <Search size={16} />
         </div>
         <input
-          type="text"
+          id="catalog-search"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Busca por título, autora o ISBN"
-          className="w-full pl-10 pr-4 py-3 text-base bg-surface border border-outline rounded-md outline-none focus:ring-2 focus:ring-primary"
+          className="w-full pl-10 pr-10 py-3 text-base bg-surface border border-outline rounded-md outline-none focus:ring-2 focus:ring-primary [&::-webkit-search-cancel-button]:hidden"
         />
+        {query && (
+          <button
+            onClick={() => setQuery('')}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-on-surface-variant hover:text-primary rounded-full focus:outline-none focus:ring-2 focus:ring-primary"
+            aria-label="Borrar búsqueda"
+          >
+            <X size={16} aria-hidden="true" />
+          </button>
+        )}
       </div>
 
-      <p className="text-xs text-on-surface-variant">
+      <p className="text-xs text-on-surface-variant" aria-live="polite">
         {filtered.length} de {books.length}
       </p>
 
