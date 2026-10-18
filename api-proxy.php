@@ -462,7 +462,7 @@ elseif ($path == '/book-metadata') {
                 CURLOPT_NOBODY => true,
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_TIMEOUT => 5,
-                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYPEER => true,
                 CURLOPT_USERAGENT => 'Mozilla/5.0'
             ]);
             curl_exec($ch);
@@ -486,7 +486,7 @@ elseif ($path == '/book-metadata') {
             CURLOPT_NOBODY => true,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_TIMEOUT => 5,
-            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYPEER => true,
             CURLOPT_USERAGENT => 'Mozilla/5.0'
         ]);
         curl_exec($ch);

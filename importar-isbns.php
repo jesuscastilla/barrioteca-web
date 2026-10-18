@@ -75,7 +75,7 @@ foreach ($isbns as $i => $isbn) {
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
     $resp = curl_exec($ch);
     $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
