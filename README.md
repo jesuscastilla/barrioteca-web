@@ -191,6 +191,21 @@ La Barrioteca Acalencá se aloja en un **NAS Synology** que funciona como nube l
 
 Este proyecto ha sido desarrollado por [Peloxi](https://jesuscastilla.github.io/portfolio-pelotxo/) (Instagram: @Pelochochi) para la Barrioteca Acalenca, un espacio perteneciente a Lebeche, asociacion cultural y vecinal de Salobrena (Granada).
 
+## Herramientas
+
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) — frontend.
+- [Vite](https://vitejs.dev/) — build y servidor de desarrollo.
+- [Tailwind CSS](https://tailwindcss.com/) — estilos.
+- [Node.js](https://nodejs.org/) + [Express](https://expressjs.com/) — servidor/proxy.
+- [Axios](https://axios-http.com/) — cliente HTTP.
+- [html5-qrcode](https://github.com/mebjas/html5-qrcode) — escáner de códigos.
+- [PHP](https://www.php.net/) — proxy alternativo (api-proxy.php).
+- [SLiMS](https://slims.web.id/) — backend de biblioteca.
+
+## Mantenimiento automático
+
+Este repositorio es revisado **cada noche** por agentes automáticos que buscan bugs en el código. Por ello, entre las **03:00** y las **05:00** es probable que no todo funcione correctamente.
+
 ## Licencia
 
 GNU General Public License v3.0
