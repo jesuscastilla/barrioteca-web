@@ -1,0 +1,3 @@
+## 2023-10-19 - Improved form accessibility in LoginView and ScanView
+**Learning:** Adding labels directly over text inputs dramatically improves accessibility without hurting design, particularly on minimal components that lacked them entirely. Furthermore, using `aria-invalid` and `aria-describedby` helps screen readers associate an error message specifically to the problematic input correctly. This should be a standard pattern in all forms in this application.
+**Action:** Always ensure inputs have associated labels, and use `aria-invalid` along with `aria-describedby` when displaying dynamic inline error messages for forms.
