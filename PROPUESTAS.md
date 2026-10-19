@@ -3,6 +3,7 @@
 Propuestas pendientes de revision, generadas por agentes automaticos. Ninguna entrada esta aplicada; quedan a la espera de revision humana.
 
 ## [2026-10-18 00:58] — PR #1: Palette: Accessible Catalog Search
+> **Estado:** aplicado
 
 - **Archivos afectados:** src/components/CatalogList.tsx
 - **Motivo:** What: Added accessible dynamic search feedback and a clear search button. Why: To improve the user experience for users who rely on screen readers and enhance keyboard navigation. Accessibility: Added aria-live="polite" to search results counter, a hidden label (sr-only) for the search input, changed type to search, and ensured the new clear button has a proper aria-label and aria-hidden on the icon.
@@ -463,6 +464,7 @@ index f7f3ec9..c34ddd5 100644
 ```
 
 ## [2026-10-18 00:58] — PR #2: Bolt: [performance improvement]
+> **Estado:** descartado (diff incompleto: solo importa useMemo)
 
 - **Archivos afectados:** src/components/CatalogList.tsx
 - **Motivo:** What: The search input filtering the catalog has been optimized. useMemo is now caching the result, and an input debounce was added so it won't re-render on every keystroke. Furthermore, expensive toLowerCase and trim operations were extracted outside the O(N) loop. Why: When searching over a long list of catalog items, recalculating on every render and re-evaluating the same strings dynamically for every element causes UI sluggishness. Impact: Considerably minimizes CPU cost and UI blocking when typing into the search. Measurement: Verify typing lag in the search catalog manually - it should feel instantaneous.
@@ -483,6 +485,7 @@ index f7f3ec9..b0da9e4 100644
 ```
 
 ## [2026-10-18 03:16] — PR #3: Sentinel: [HIGH] Fix Insecure SSL Verification
+> **Estado:** aplicado
 
 - **Archivos afectados:** api-proxy.php, importar-isbns.php
 - **Motivo:** Fixes an insecure configuration in the PHP proxy and import script where cURL connections to external APIs completely disabled SSL certificate verification, making it vulnerable to MITM attacks. Also added Sentinel learning journals for a critical CORS misconfiguration pattern (blind reflection of any Origin header) discovered during analysis.
@@ -528,6 +531,7 @@ index 46404ea..0fda0ff 100644
 ```
 
 ## [2026-10-18 03:36] — PR #4: Palette: Add clear search button and ARIA label to Catalog List
+> **Estado:** descartado (redundante con PR #1)
 
 - **Archivos afectados:** src/components/CatalogList.tsx
 - **Motivo:** What: Added an inline "Clear" (X) button to the search input in the Catalog view, along with an aria-label for screen reader accessibility. Why: Improves navigation speed by giving users an immediate, one-click way to reset a search and view all books, without having to manually backspace text. It also guarantees accessibility for the icon-only action. Before/After: Visually, the input gains a small inline "X" button aligned to the right when there is text typed in the box. Accessibility: Added aria-label="Buscar en el catálogo" to the input since it lacked a label, and aria-label="Borrar búsqueda" to the clear button to provide proper context to screen reader users. The button also correctly specifies type="button".
