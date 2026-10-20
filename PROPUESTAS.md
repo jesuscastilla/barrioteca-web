@@ -566,3 +566,12 @@ index f7f3ec9..78fd938 100644
        <p className="text-xs text-on-surface-variant">
 ```
 
+
+## [2026-10-20] — Bolt: useMemo + debounce en el filtrado del catálogo
+
+> **Estado:** aplicado
+
+- **Archivos afectados:** src/components/CatalogList.tsx
+- **Motivo:** cachear el filtrado con useMemo y añadir debounce de 300 ms para no recalcular en cada pulsación.
+- **Riesgo:** bajo
+
