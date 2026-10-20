@@ -74,14 +74,20 @@ export function ScanView({ action, onSelectAction, logs, onClearLogs, onResult, 
         Escanear libro
       </button>
 
-      <input
-        type="text"
-        value={manualCode}
-        onChange={(e) => setManualCode(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && applyManual()}
-        placeholder="Código de barras / ISBN"
-        className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
-      />
+      <div className="flex flex-col gap-1.5">
+        <label htmlFor="manual-code" className="text-sm font-semibold">
+          Código de barras / ISBN
+        </label>
+        <input
+          id="manual-code"
+          type="text"
+          value={manualCode}
+          onChange={(e) => setManualCode(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && applyManual()}
+          placeholder="Código de barras / ISBN"
+          className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
 
       <button
         onClick={applyManual}

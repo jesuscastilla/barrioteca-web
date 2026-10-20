@@ -51,14 +51,29 @@ export function LoginView({ onLogin, loginError, isLoggingIn }: Props) {
       </p>
 
       <div className="w-full max-w-sm mt-8 space-y-4">
-        <input
-          type="text"
-          value={manualId}
-          onChange={(e) => setManualId(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && submit()}
-          placeholder="ID de socia"
-          className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
-        />
+        <div className="flex flex-col gap-1.5">
+          <label htmlFor="login-id" className="text-sm font-semibold">
+            ID de socia
+          </label>
+          <input
+            id="login-id"
+            type="text"
+            value={manualId}
+            onChange={(e) => setManualId(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && submit()}
+            placeholder="ID de socia"
+            aria-invalid={!!loginError}
+            aria-describedby={loginError ? 'login-error' : undefined}
+            className={`w-full bg-surface border rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary ${
+              loginError ? 'border-error focus:ring-error' : 'border-outline'
+            }`}
+          />
+          {loginError && (
+            <p id="login-error" className="text-sm text-error" aria-live="polite">
+              {loginError}
+            </p>
+          )}
+        </div>
 
         <button
           onClick={submit}
@@ -79,7 +94,6 @@ export function LoginView({ onLogin, loginError, isLoggingIn }: Props) {
           Escanear carné (QR o código de barras)
         </button>
 
-        {loginError && <p className="text-sm text-error text-center">{loginError}</p>}
       </div>
     </div>
   );
