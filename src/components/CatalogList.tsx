@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Loader2, Search, X } from 'lucide-react';
 import type { CatalogBook } from '../types';
@@ -13,6 +13,7 @@ export function CatalogList({ endpoint, isLoggedIn, onBorrow }: Props) {
   const [books, setBooks] = useState<CatalogBook[]>([]);
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState('');
+  const [debouncedQuery, setDebouncedQuery] = useState('');
   const [selected, setSelected] = useState<CatalogBook | null>(null);
   const [detail, setDetail] = useState<{ notes?: string; image?: string } | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
@@ -38,18 +39,30 @@ export function CatalogList({ endpoint, isLoggedIn, onBorrow }: Props) {
   }, [endpoint]);
 
   useEffect(() => {
-    setVisibleCount(50);
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 300);
+    return () => clearTimeout(handler);
   }, [query]);
 
-  const filtered = query.trim()
-    ? books.filter(
-        (b) =>
-          b.title.toLowerCase().includes(query.toLowerCase()) ||
-          b.author.toLowerCase().includes(query.toLowerCase()) ||
-          (b.isbn || '').includes(query.trim()) ||
-          (b.item_code || '').includes(query.trim()),
-      )
-    : books;
+  useEffect(() => {
+    setVisibleCount(50);
+  }, [debouncedQuery]);
+
+  const filtered = useMemo(() => {
+    const trimmed = debouncedQuery.trim();
+    if (!trimmed) return books;
+
+    const lowerQuery = trimmed.toLowerCase();
+
+    return books.filter(
+      (b) =>
+        b.title.toLowerCase().includes(lowerQuery) ||
+        b.author.toLowerCase().includes(lowerQuery) ||
+        (b.isbn || '').includes(trimmed) ||
+        (b.item_code || '').includes(trimmed),
+    );
+  }, [books, debouncedQuery]);
 
   const shown = filtered.slice(0, visibleCount);
 
