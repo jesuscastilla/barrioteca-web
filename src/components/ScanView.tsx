@@ -149,7 +149,8 @@ function ActionToggle({
   return (
     <button
       onClick={onClick}
-      className={`flex-1 py-3 rounded-md font-semibold ${
+      aria-pressed={active}
+      className={`flex-1 py-3 rounded-md font-semibold focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
         active ? 'bg-primary text-on-primary' : 'border border-outline text-primary'
       }`}
     >
