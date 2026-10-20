@@ -51,14 +51,20 @@ export function LoginView({ onLogin, loginError, isLoggingIn }: Props) {
       </p>
 
       <div className="w-full max-w-sm mt-8 space-y-4">
-        <input
-          type="text"
-          value={manualId}
-          onChange={(e) => setManualId(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && submit()}
-          placeholder="ID de socia"
-          className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
-        />
+        <div>
+          <label htmlFor="manual-id" className="sr-only">
+            ID de socia
+          </label>
+          <input
+            id="manual-id"
+            type="text"
+            value={manualId}
+            onChange={(e) => setManualId(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && submit()}
+            placeholder="ID de socia"
+            className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
 
         <button
           onClick={submit}

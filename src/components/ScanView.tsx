@@ -74,14 +74,20 @@ export function ScanView({ action, onSelectAction, logs, onClearLogs, onResult, 
         Escanear libro
       </button>
 
-      <input
-        type="text"
-        value={manualCode}
-        onChange={(e) => setManualCode(e.target.value)}
-        onKeyDown={(e) => e.key === 'Enter' && applyManual()}
-        placeholder="Código de barras / ISBN"
-        className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
-      />
+      <div>
+        <label htmlFor="manual-code" className="sr-only">
+          Código de barras / ISBN
+        </label>
+        <input
+          id="manual-code"
+          type="text"
+          value={manualCode}
+          onChange={(e) => setManualCode(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && applyManual()}
+          placeholder="Código de barras / ISBN"
+          className="w-full bg-surface border border-outline rounded-md px-4 py-3 text-base outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
 
       <button
         onClick={applyManual}
@@ -143,7 +149,8 @@ function ActionToggle({
   return (
     <button
       onClick={onClick}
-      className={`flex-1 py-3 rounded-md font-semibold ${
+      aria-pressed={active}
+      className={`flex-1 py-3 rounded-md font-semibold focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none ${
         active ? 'bg-primary text-on-primary' : 'border border-outline text-primary'
       }`}
     >
