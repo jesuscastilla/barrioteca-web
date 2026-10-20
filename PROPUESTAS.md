@@ -566,3 +566,73 @@ index f7f3ec9..78fd938 100644
        <p className="text-xs text-on-surface-variant">
 ```
 
+
+## [2026-10-20 01:15] — Bolt: [performance improvement]
+
+- **Archivos afectados:** src/components/CatalogList.tsx
+- **Motivo:** What: The search input filtering the catalog has been optimized. useMemo is now caching the result, and an input debounce was added so it won't re-render on every keystroke. Furthermore, expensive toLowerCase and trim operations were extracted outside the O(N) loop. Why: When searching over a long list of catalog items, recalculating on every render and re-evaluating the same strings dynamically for every element causes UI sluggishness. Impact: Considerably minimizes CPU cost and UI blocking when typing into the search. Measurement: Verify typing lag in the search catalog manually - it should feel instantaneous.
+- **Riesgo:** bajo
+- **Validación:** medir con profiling/DevTools antes y despues del cambio
+
+```diff
+diff --git a/src/components/CatalogList.tsx b/src/components/CatalogList.tsx
+index 7a9a1bb..0563245 100644
+--- a/src/components/CatalogList.tsx
++++ b/src/components/CatalogList.tsx
+@@ -1,4 +1,4 @@
+-import { useEffect, useState } from 'react';
++import { useEffect, useState, useMemo } from 'react';
+ import axios from 'axios';
+ import { Loader2, Search, X } from 'lucide-react';
+ import type { CatalogBook } from '../types';
+@@ -13,6 +13,7 @@ export function CatalogList({ endpoint, isLoggedIn, onBorrow }: Props) {
+   const [books, setBooks] = useState<CatalogBook[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [query, setQuery] = useState('');
++  const [debouncedQuery, setDebouncedQuery] = useState('');
+   const [selected, setSelected] = useState<CatalogBook | null>(null);
+   const [detail, setDetail] = useState<{ notes?: string; image?: string } | null>(null);
+   const [detailLoading, setDetailLoading] = useState(false);
+@@ -40,16 +41,27 @@ export function CatalogList({ endpoint, isLoggedIn, onBorrow }: Props) {
+   }, [endpoint]);
+
+   useEffect(() => {
+-    setVisibleCount(50);
++    const handler = setTimeout(() => {
++      setDebouncedQuery(query);
++    }, 300);
++    return () => clearTimeout(handler);
+   }, [query]);
+
+-  const filtered = query.trim()
+-    ? books.filter(
+-        (b) =>
+-          b.title.toLowerCase().includes(query.toLowerCase()) ||
+-          b.author.toLowerCase().includes(query.toLowerCase()) ||
+-          (b.isbn || '').includes(query.trim()) ||
+-          (b.item_code || '').includes(query.trim()),
+-      )
+-    : books;
++  useEffect(() => {
++    setVisibleCount(50);
++  }, [debouncedQuery]);
++
++  const filtered = useMemo(() => {
++    // ⚡ Bolt: Cache filtered results and use debounced input to prevent filtering on every keystroke
++    const trimmed = debouncedQuery.trim();
++    if (!trimmed) return books;
++
++    // ⚡ Bolt: Pre-calculate toLowerCase once before the O(N) loop
++    const lowerQuery = trimmed.toLowerCase();
++
++    return books.filter(
++      (b) =>
++        b.title.toLowerCase().includes(lowerQuery) ||
++        b.author.toLowerCase().includes(lowerQuery) ||
++        (b.isbn || '').includes(trimmed) ||
++        (b.item_code || '').includes(trimmed)
++    );
++  }, [books, debouncedQuery]);
+
+   const shown = filtered.slice(0, visibleCount);
+```
