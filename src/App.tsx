@@ -263,7 +263,7 @@ export default function App() {
         )}
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-cream/95 border-t border-outline/30 px-4 sm:px-8 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] flex items-center justify-between z-50">
+      <nav aria-label="Navegación principal" className="fixed bottom-0 left-0 right-0 bg-cream/95 border-t border-outline/30 px-4 sm:px-8 pt-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] flex items-center justify-between z-50">
         {[
           { id: 'dashboard', icon: <Home size={24} />, label: 'Inicio' },
           { id: 'catalog', icon: <Library size={24} />, label: 'Catálogo' },
@@ -273,8 +273,9 @@ export default function App() {
           <button
             key={item.id}
             onClick={() => setView(item.id as View)}
-            className={`flex flex-col items-center gap-1 transition-all ${
-              view === item.id ? 'text-primary' : 'text-on-surface-variant'
+            aria-current={view === item.id ? 'page' : undefined}
+            className={`flex flex-col items-center gap-1 transition-all focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none rounded-md px-1 py-0.5 ${
+              view === item.id ? 'text-primary' : 'text-on-surface-variant hover:text-primary/80'
             }`}
           >
             <span
@@ -290,6 +291,8 @@ export default function App() {
       <AnimatePresence>
         {toast && (
           <motion.div
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
