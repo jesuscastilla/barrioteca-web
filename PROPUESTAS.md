@@ -575,3 +575,40 @@ index f7f3ec9..78fd938 100644
 - **Motivo:** cachear el filtrado con useMemo y añadir debounce de 300 ms para no recalcular en cada pulsación.
 - **Riesgo:** bajo
 
+
+## [2026-10-21 01:13] — Bolt: Reutilizar instancia de Intl.DateTimeFormat
+
+- **Archivos afectados:** src/components/DashboardView.tsx
+- **Motivo:** `new Intl.DateTimeFormat` es una operacion costosa en JavaScript. Crearlo dentro de la funcion `formatDate` causa que se instancie de nuevo por cada fecha a formatear (por ejemplo, en una lista de prestamos). Se optimiza moviendolo fuera de la funcion para reusar una unica instancia.
+- **Riesgo:** bajo
+- **Validacion:** Verificar que las fechas de los prestamos se siguen mostrando correctamente en el panel principal y que pasan las pruebas y el linter.
+
+```diff
+<<<<<<< SEARCH
+function formatDate(dateStr?: string | null): string {
+  if (!dateStr) return '—';
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr.trim());
+  if (!m) return dateStr;
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return new Intl.DateTimeFormat('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(d);
+}
+=======
+const dateFormatter = new Intl.DateTimeFormat('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+function formatDate(dateStr?: string | null): string {
+  if (!dateStr) return '—';
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr.trim());
+  if (!m) return dateStr;
+  const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  return dateFormatter.format(d);
+}
+>>>>>>> REPLACE
+```
