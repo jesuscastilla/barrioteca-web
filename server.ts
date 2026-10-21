@@ -101,10 +101,10 @@ async function startServer() {
       console.error("[verify-member] SLiMS status:", error.response?.status);
       console.error("[verify-member] SLiMS data:", error.response?.data);
 
+      // Sentinel: Prevent sensitive data exposure (stack traces, internal messages)
       return res.status(error.response?.status || 500).json({
         status: "error",
-        message:
-          error.response?.data?.message || "Error al verificar a la socia.",
+        message: "Error de comunicación con el servidor interno.",
       });
     }
   });
@@ -139,11 +139,10 @@ async function startServer() {
     } catch (error: any) {
       console.error("[item-status] Error:", error.message);
 
+      // Sentinel: Prevent sensitive data exposure (stack traces, internal messages)
       return res.status(error.response?.status || 500).json({
         status: "error",
-        message:
-          error.response?.data?.message ||
-          "Error al consultar disponibilidad del libro.",
+        message: "Error al consultar disponibilidad del libro.",
       });
     }
   });
@@ -280,7 +279,9 @@ async function startServer() {
       console.error("[perform-action] SLiMS status:", error.response?.status);
       console.error("[perform-action] SLiMS data:", error.response?.data);
 
-      if (error.response?.data) {
+      // Sentinel: Prevent sensitive data exposure (stack traces, internal messages)
+      if (error.response?.data && typeof error.response.data === 'object' && error.response.data.status) {
+        // Return only structured error payloads, discard raw HTML or stack traces
         return res
           .status(error.response.status || 500)
           .json(error.response.data);
@@ -288,7 +289,7 @@ async function startServer() {
 
       return res.status(500).json({
         status: "error",
-        message: `Error al conectar con SLiMS: ${error.message}`,
+        message: "Error de comunicación con el servidor interno.",
       });
     }
   });
@@ -478,9 +479,10 @@ async function startServer() {
         try {
           return res.json(await verify(id));
         } catch (e: any) {
+          // Sentinel: Prevent sensitive data exposure
           return res.status(e.response?.status || 500).json({
             status: "error",
-            message: e.response?.data?.message || "Error al verificar a la socia.",
+            message: "Error de comunicación con el servidor interno.",
           });
         }
       }
@@ -567,14 +569,18 @@ async function startServer() {
           }
           return res.status(400).json({ status: "error", message: `Acción desconocida: ${accion}` });
         } catch (e: any) {
+          // Sentinel: Prevent sensitive data exposure
+          if (e.response?.data && typeof e.response.data === 'object' && e.response.data.status) {
+            return res
+              .status(e.response.status || 500)
+              .json(e.response.data);
+          }
           return res
             .status(e.response?.status || 500)
-            .json(
-              e.response?.data || {
-                status: "error",
-                message: `Error al conectar con SLiMS: ${e.message}`,
-              }
-            );
+            .json({
+              status: "error",
+              message: "Error de comunicación con el servidor interno.",
+            });
         }
       }
 
