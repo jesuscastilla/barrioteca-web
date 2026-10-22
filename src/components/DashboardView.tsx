@@ -1,16 +1,19 @@
 import { Loader2 } from 'lucide-react';
 import type { LibraryUser, Loan } from '../types';
 
+// Reutiliza una única instancia de Intl.DateTimeFormat (evita reinstanciar en cada formato)
+const dateFormatter = new Intl.DateTimeFormat('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
 function formatDate(dateStr?: string | null): string {
   if (!dateStr) return '—';
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(dateStr.trim());
   if (!m) return dateStr;
   const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-  return new Intl.DateTimeFormat('es-ES', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(d);
+  return dateFormatter.format(d);
 }
 
 interface Props {
