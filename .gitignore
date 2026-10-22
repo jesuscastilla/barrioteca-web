@@ -31,7 +31,3 @@ importar-csv.php
 
 # Dependencias
 package-lock.json
-
-# Agente Jules: artefactos locales (no versionar)
-.jules/
-jules-*

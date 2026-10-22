@@ -202,10 +202,6 @@ Este proyecto ha sido desarrollado por [Peloxi](https://jesuscastilla.github.io/
 - [PHP](https://www.php.net/) — proxy alternativo (api-proxy.php).
 - [SLiMS](https://slims.web.id/) — backend de biblioteca.
 
-## Mantenimiento automático
-
-Este repositorio es revisado **cada noche** por agentes automáticos que buscan bugs en el código. Por ello, entre las **03:00** y las **05:00** es probable que no todo funcione correctamente.
-
 ## Licencia
 
 GNU General Public License v3.0
