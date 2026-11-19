@@ -172,11 +172,7 @@ La app web muestra un aviso automático con estas instrucciones, **solo en dispo
 
 ## Infraestructura
 
-La Barrioteca Acalencá se aloja en un **NAS Synology** que funciona como nube local encriptada y autogestionada, sin dependencia de servidores externos. El acceso al panel de administración (DSM) se realiza vía `https://pelotxo.synology.me:5001`. La app web y SLiMS se sirven por HTTPS estándar (puerto 443).
-
-- **Acceso por red local**: SSH en `192.168.50.93` (o `192.168.50.94`), puerto **22**.
-- **Archivos del NAS**: disponibles en `\\192.168.50.94\` desde Windows.
-- **Código local**: cada repositorio está clonado en `G:\GITHUB\`.
+La Barrioteca Acalencá se aloja en un **NAS Synology** configurado con Web Station (Nginx + PHP 8 + MariaDB), funcionando como nube privada, encriptada y autogestionada sin dependencia de servicios externos. La app web y SLiMS se sirven bajo HTTPS estándar mediante certificado SSL gestionado.
 
 ## Repositorios relacionados
 
@@ -189,7 +185,7 @@ La Barrioteca Acalencá se aloja en un **NAS Synology** que funciona como nube l
 
 ## Creditos
 
-Este proyecto ha sido desarrollado por [Peloxi](https://jesuscastilla.github.io/portfolio-pelotxo/) (Instagram: @Pelochochi) para la Barrioteca Acalenca, un espacio perteneciente a Lebeche, asociacion cultural y vecinal de Salobrena (Granada).
+Este proyecto ha sido desarrollado por [Jesús Castilla](https://diplotech.es) para la Barrioteca Acalencá, un espacio perteneciente a Lebeche, asociación cultural y vecinal de Salobreña (Granada).
 
 ## Herramientas
 
